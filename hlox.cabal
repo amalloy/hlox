@@ -1,0 +1,66 @@
+cabal-version:      2.4
+name:               hlox
+version:            0.1.0.0
+synopsis:           A Haskell implementation of Lox, from Crafting Interpreters
+
+-- A longer description of the package.
+-- description:
+homepage:
+
+-- A URL where users can report bugs.
+-- bug-reports:
+license:            LGPL-2.1-or-later
+license-file:       LICENSE
+author:             Alan Malloy
+maintainer:         alan@malloys.org
+
+category:           Language
+extra-source-files: CHANGELOG.md
+
+common shared-properties
+  default-language:    GHC2021
+  default-extensions:  LambdaCase
+                     , OverloadedStrings
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Widentities
+                       -Wincomplete-record-updates
+                       -Wincomplete-uni-patterns
+                       -Wmissing-export-lists
+                       -Wmissing-home-modules
+                       -Wno-unused-top-binds
+                       -Wpartial-fields
+                       -Wredundant-constraints
+
+library
+    import:           shared-properties
+    exposed-modules:  HLox.Lexer
+
+    -- Modules included in this library but not exported.
+    -- other-modules:
+
+    build-depends:    base >=4.14.3.0
+                    , containers
+                    , either
+                    , text
+                    , transformers
+    hs-source-dirs:   src
+
+executable hlox
+    import:           shared-properties
+    main-is:          Main.hs
+
+    -- LANGUAGE extensions used by modules in this package.
+    -- other-extensions:
+    build-depends:    base >=4.14.3.0
+                    , hlox
+                    , text
+    hs-source-dirs:   app
+
+test-suite hlox-test
+    import:           shared-properties
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          MyLibTest.hs
+    build-depends:    base >=4.14.3.0
+                    , hlox
